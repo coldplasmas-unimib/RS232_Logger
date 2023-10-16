@@ -16,7 +16,7 @@ class Saver:
         return self.basename + "/" + self.clean_foldername( subfolder )
 
     def make_filename( self, folder, progr ):
-        return f"{folder + "/M" + "%04d".format(progr) + ".metex.csv"
+        return folder + "/M" + "%04d".format(progr) + ".metex.csv"
 
     def compute_filename( self, subfolder ):
         folder = self.compute_foldername( subfolder )
