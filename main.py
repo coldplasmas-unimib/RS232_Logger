@@ -120,7 +120,7 @@ while True:
 
     if sv.is_saving():
         blink_dot = not blink_dot
-        window['blinking_dot'].update( '⦾' if blink_dot else '⦿' )
+        window['blinking_dot'].update( 'x' if blink_dot else 'o' )
 
 window.close()
 sys.exit()
