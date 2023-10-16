@@ -31,7 +31,7 @@ class SerialReader:
                     self.newData.append( newData )
                     self.saver.stream_data( *newData )
 
-            time.sleep(1)
+            time.sleep(0.1)
 
     def __init__(self, saver):
         self.connected = False
