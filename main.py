@@ -54,7 +54,7 @@ plot.first_draw()
 
 # Read available COM ports
 def refresh_ports():
-    ports = list_ports.comports()
+    ports = list( list_ports.comports() )
     window['ports_combo'].update(values=[p for p in ports], value=( ports[0] if len(ports) > 0 else "" ))
 refresh_ports()
 
