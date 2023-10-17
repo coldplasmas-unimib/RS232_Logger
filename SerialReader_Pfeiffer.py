@@ -69,7 +69,7 @@ class SerialReader:
         return len( self.newData ) > 0
 
     def flushData( self ):
-        self.data = [ *self.data, *self.newData ]
+        self.data = self.data + self.newData
         self.newData = []
 
     def getAllData(self):
