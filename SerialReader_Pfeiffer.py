@@ -90,4 +90,4 @@ class SerialReader:
         return ( datetime.now(), 0, "No data" )
     
     def makeDisplayableData(self, data):
-        return "\n".join([f"{d[0].strftime('%H:%M:%S')}\t{d[1]}\t{self.error_msg(d[2])}" for d in data])
+        return "\n".join([d[0].strftime('%H:%M:%S') + "\t" + str(d[1]) + "\t" + self.error_msg(d[2]) for d in data])
