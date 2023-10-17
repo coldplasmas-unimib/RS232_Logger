@@ -17,7 +17,6 @@ class SerialReader:
                     car = self.ser.read(1)
                     if( car == b'\x00' ):
                         continue
-                    print(line)
                     line += car.decode("ISO-8859-1")
                     if len(line) == 0 or line[-1] in break_chars:
                         break
