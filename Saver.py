@@ -16,7 +16,7 @@ class Saver:
         return self.basename + "/" + self.clean_foldername( subfolder )
 
     def make_filename( self, folder, progr ):
-        return folder + "/M" + "%04d".format(progr) + ".metex.csv"
+        return folder + "/M" + "{:04d}".format(progr) + ".metex.csv"
 
     def compute_filename( self, subfolder ):
         folder = self.compute_foldername( subfolder )
@@ -35,7 +35,7 @@ class Saver:
     
     def stream_data( self, datetime, data, udm ):
         if( self.file ):
-            self.file.write( "%.0f".format(datetime.timestamp()*1000) + "," + str(data) + ","  + str(udm) + "\n" )
+            self.file.write( "{:.0f}".format(datetime.timestamp()*1000) + "," + str(data) + ","  + str(udm) + "\n" )
 
     def stop_saving( self ):
         self.file.close()
