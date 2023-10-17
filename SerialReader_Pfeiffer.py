@@ -8,12 +8,11 @@ class SerialReader:
 
     @staticmethod
     def error_msg( code ):
-        match code:
-            case 0: return "mBar"
-            case 1: return "Underrange"
-            case 2: return "Overrange"
-            case 3: return "Sensor error"
-            case 5: return "No sensor connected"
+        if( code == 0 ): return "mBar"
+        if( code == 1 ): return "Underrange"
+        if( code == 2 ): return "Overrange"
+        if( code == 3 ): return "Sensor error"
+        if( code == 5 ): return "No sensor connected"
         return "Unknown error"
 
     def thread_function(self):
