@@ -11,13 +11,13 @@ class SerialReader:
 
         while True:
             if (self.connected):
-                # self.ser.write(b'D')
+                self.ser.write(b'D')
                 line = ""
                 while True:
                     car = self.ser.read(1)
-                    print(car)
                     if( car == b'\x00' ):
                         continue
+                    print(line)
                     line += car.decode("ISO-8859-1")
                     if len(line) == 0 or line[-1] in break_chars:
                         break
