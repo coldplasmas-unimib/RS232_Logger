@@ -3,9 +3,12 @@ from serial.tools import list_ports
 from SerialReader_Metex import SerialReader
 import Saver
 import Plotter
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 import sys
+import numpy as np
+import threading
+from requests import request
 
 layout = [[ sg.Column( [
     [
@@ -37,6 +40,10 @@ layout = [[ sg.Column( [
         sg.Text("", font=('Helvetica', 15), key='udm', justification='right'),
     ],
     [
+        sg.Button('Enable notifier', key="notifier_btn", disabled=False),
+        sg.Text("t.me/rs232_notifications")
+    ],
+    [
         sg.Text("L. Zampieri - 10/2023", font=('Helvetica', 8)),
     ]
 ] ), sg.Column( [[
@@ -65,6 +72,14 @@ window['saved_file'].update( sv.compute_foldername( window['foldername'].get() )
 sr = SerialReader( sv )
 
 blink_dot = False
+notifier = False
+
+def notify_on_telegram():
+    threading.Thread(target=notify_on_telegram_worker).start()
+
+def notify_on_telegram_worker():
+    request('GET','https://api.telegram.org/bot6465337103:AAF_EosxW6iQRntjMH5vxaU_DlCu4ovk85g/sendMessage?chat_id=@rs232_notifications&text=Stabile', timeout=1, verify=False)
+    return
 
 while True:
     event, values = window.read(timeout=100)
@@ -83,6 +98,10 @@ while True:
 
     if event == 'viewfolder_btn':
         os.startfile( sv.compute_foldername( values['foldername'] ) )
+
+    if event == 'notifier_btn':
+        notifier = True
+        window['notifier_btn'].update(disabled=True)
 
     if event == 'foldername':
         window['foldername'].update( Saver.Saver.clean_foldername( values['foldername'] ) )
@@ -117,6 +136,15 @@ while True:
         window['udm'].update( udm )
 
         plot.update_data( sr.getAllData() )
+
+        if( notifier ):
+            # Select data of last 5 minutes:
+            min_ago_5 = datetime.now() - timedelta( minutes=5 )
+            deviation = np.ptp( [ d[1] for d in sr.getAllData() if d[0] > min_ago_5 ] )
+            if( deviation == 0 ):
+                notifier = False
+                window['notifier_btn'].update(disabled=False)
+                notify_on_telegram()
 
     if sv.is_saving():
         blink_dot = not blink_dot

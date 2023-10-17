@@ -78,4 +78,4 @@ class SerialReader:
         return toReturn
 
     def makeDisplayableData(self, data):
-        return "\n".join([{d[0].strftime('%H:%M:%S')} + "\t" + str(d[1]) + "\t" + str(d[2]) for d in data])
+        return "\n".join([d[0].strftime('%H:%M:%S') + "\t" + str(d[1]) + "\t" + str(d[2]) for d in data])
