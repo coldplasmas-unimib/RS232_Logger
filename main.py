@@ -55,7 +55,7 @@ plot.first_draw()
 # Read available COM ports
 def refresh_ports():
     ports = list( list_ports.comports() )
-    window['ports_combo'].update(values=[p for p in ports], value=( ports[0] if len(ports) > 0 else "" ))
+    window['ports_combo'].update(values=[p.device for p in ports], value=( ports[0].device if len(ports) > 0 else "" ))
 refresh_ports()
 
 # Read cwv
@@ -74,7 +74,7 @@ while True:
         refresh_ports()
 
     if event == 'connect_btn':
-        sr.connect(values['ports_combo'].device)
+        sr.connect(values['ports_combo'])
 
         window['connect_btn'].update(disabled=True)
         window['refresh_btn'].update(disabled=True)
