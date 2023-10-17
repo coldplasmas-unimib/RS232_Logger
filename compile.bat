@@ -1,1 +1,1 @@
-rm -f -r dist && pyinstaller.exe --onefile main.py
+del dist /Q && pyinstaller.exe --onefile main.py
