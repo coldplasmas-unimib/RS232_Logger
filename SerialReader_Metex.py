@@ -11,7 +11,7 @@ class SerialReader:
 
         while True:
             if (self.connected):
-                self.ser.write(b'D')
+                # self.ser.write(b'D')
                 line = ""
                 while True:
                     car = self.ser.read(1)
