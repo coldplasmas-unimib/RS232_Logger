@@ -32,7 +32,7 @@ class SerialReader:
                     value = 0.0
                     if( len( probes ) % 2 == 0 ):
                         for i in range( 0, len( probes ), 2 ):
-                            if( probes[i] == 0 ):
+                            if( int( probes[i] ) == 0 ):
                                 error_code = 0
                                 print("Accepting")
                                 print( probes[ i+1 ] )
