@@ -34,11 +34,7 @@ class SerialReader:
                         for i in range( 0, len( probes ), 2 ):
                             if( int( probes[i] ) == 0 ):
                                 error_code = 0
-                                print("Accepting")
-                                print( probes[ i+1 ] )
                                 value = float( probes[ i+1 ] )
-                                print("Saving")
-                                print(value)
                                 break
                             else:
                                 error_code = min( error_code, int( probes[i] ) )
@@ -95,4 +91,4 @@ class SerialReader:
         return ( datetime.now(), 0, "No data" )
     
     def makeDisplayableData(self, data):
-        return "\n".join([d[0].strftime('%H:%M:%S') + "\t" + str(d[1]) + "\t" + self.error_msg(d[2]) for d in data])
+        return "\n".join([d[0].strftime('%H:%M:%S') + "\t" + "{:.2e}".format(d[1]) + "\t" + self.error_msg(d[2]) for d in data])
