@@ -4,6 +4,9 @@ import time
 from datetime import datetime
 import re
 
+WindowTitle = "Alcatel"
+FileExt = "alcatel"
+
 class SerialReader:
 
     @staticmethod
@@ -26,7 +29,6 @@ class SerialReader:
                     if len(line) == 0 or line[-1] in break_chars:
                         break
                 if (len(line) > 1):
-                    print(line)
                     probes = line.split(',')
                     error_code = 5
                     value = 0.0

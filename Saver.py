@@ -4,9 +4,10 @@ import re
 
 class Saver:
 
-    def __init__( self ):
+    def __init__( self, fileext ):
         self.basename = os.getcwd()
         self.file = None
+        self.fileext = '.' + fileext + '.csv'
     
     @staticmethod
     def clean_foldername( foldername ):
@@ -16,7 +17,7 @@ class Saver:
         return self.basename + "/" + self.clean_foldername( subfolder )
 
     def make_filename( self, folder, progr ):
-        return folder + "/M" + "{:04d}".format(progr) + ".metex.csv"
+        return folder + "/M" + "{:04d}".format(progr) + self.fileext
 
     def compute_filename( self, subfolder ):
         folder = self.compute_foldername( subfolder )

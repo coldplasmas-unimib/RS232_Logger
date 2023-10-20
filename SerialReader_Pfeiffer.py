@@ -4,6 +4,9 @@ import time
 from datetime import datetime
 import re
 
+WindowTitle = "Pfeiffer"
+FileExt = "pfeiffer"
+
 class SerialReader:
 
     @staticmethod

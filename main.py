@@ -43,7 +43,7 @@ layout = [[ sg.Column( [
     sg.Canvas( key='canvas' )
 ]] ) ]]
 
-window = sg.Window(title= 'Pfeiffer logger - XP version', layout=layout,margins=(100, 100))
+window = sg.Window(title= SerialReader.WindowTitle + ' logger - XP version', layout=layout,margins=(100, 100))
 window.finalize()
 
 # Prepare plot
@@ -59,7 +59,7 @@ def refresh_ports():
 refresh_ports()
 
 # Read cwv
-sv = Saver.Saver()
+sv = Saver.Saver( SerialReader.FileExt )
 window['saved_file'].update( sv.compute_foldername( window['foldername'].get() ) )
 
 sr = SerialReader( sv )

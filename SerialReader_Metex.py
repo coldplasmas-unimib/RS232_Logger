@@ -4,6 +4,9 @@ import time
 from datetime import datetime
 import re
 
+WindowTitle = "Metex"
+FileExt = "metex"
+
 class SerialReader:
 
     def thread_function(self):
