@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 from serial.tools import list_ports
-from SerialReader_Metex import SerialReader
+from SerialReader_Metex import SerialReader, WindowTitle, FileExt
 import Saver
 import Plotter
 from datetime import datetime
@@ -43,7 +43,7 @@ layout = [[ sg.Column( [
     sg.Canvas( key='canvas' )
 ]] ) ]]
 
-window = sg.Window(title= SerialReader.WindowTitle + ' logger - XP version', layout=layout,margins=(100, 100))
+window = sg.Window(title= WindowTitle + ' logger - XP version', layout=layout,margins=(100, 100))
 window.finalize()
 
 # Prepare plot
@@ -59,7 +59,7 @@ def refresh_ports():
 refresh_ports()
 
 # Read cwv
-sv = Saver.Saver( SerialReader.FileExt )
+sv = Saver.Saver( FileExt )
 window['saved_file'].update( sv.compute_foldername( window['foldername'].get() ) )
 
 sr = SerialReader( sv )
