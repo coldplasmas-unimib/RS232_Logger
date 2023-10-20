@@ -34,6 +34,8 @@ class SerialReader:
                         for i in range( 0, len( probes ), 2 ):
                             if( probes[i] == 0 ):
                                 error_code = 0
+                                print("Accepting")
+                                print( probes[ i+1 ] )
                                 value = float( probes[ i+1 ] )
                                 break
                             else:
