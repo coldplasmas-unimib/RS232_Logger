@@ -37,6 +37,8 @@ class SerialReader:
                                 print("Accepting")
                                 print( probes[ i+1 ] )
                                 value = float( probes[ i+1 ] )
+                                print("Saving")
+                                print(value)
                                 break
                             else:
                                 error_code = min( error_code, int( probes[i] ) )
