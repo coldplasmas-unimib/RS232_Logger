@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 from serial.tools import list_ports
-from SerialReader_Metex import SerialReader
+from SerialReader_Pfeiffer import SerialReader
 import Saver
 import Plotter
 from datetime import datetime
@@ -43,7 +43,7 @@ layout = [[ sg.Column( [
     sg.Canvas( key='canvas' )
 ]] ) ]]
 
-window = sg.Window(title= 'Metex logger - XP version', layout=layout,margins=(100, 100))
+window = sg.Window(title= 'Pfeiffer logger - XP version', layout=layout,margins=(100, 100))
 window.finalize()
 
 # Prepare plot
