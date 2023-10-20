@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 from serial.tools import list_ports
-from SerialReader_Metex import SerialReader, WindowTitle, FileExt
+from SerialReader_Pfeiffer import SerialReader, WindowTitle, FileExt
 import Saver
 import Plotter
 from datetime import datetime
