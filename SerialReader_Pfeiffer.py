@@ -4,16 +4,18 @@ import time
 from datetime import datetime
 import re
 
+WindowTitle = "Pfeiffer"
+FileExt = "pfeiffer"
+
 class SerialReader:
 
     @staticmethod
     def error_msg( code ):
-        match code:
-            case 0: return "mBar"
-            case 1: return "Underrange"
-            case 2: return "Overrange"
-            case 3: return "Sensor error"
-            case 5: return "No sensor connected"
+        if( code == 0 ): return "mBar"
+        if( code == 1 ): return "Underrange"
+        if( code == 2 ): return "Overrange"
+        if( code == 3 ): return "Sensor error"
+        if( code == 5 ): return "No sensor connected"
         return "Unknown error"
 
     def thread_function(self):
@@ -27,12 +29,13 @@ class SerialReader:
                     if len(line) == 0 or line[-1] in break_chars:
                         break
                 if (len(line) > 1):
+                    print(line)
                     probes = line.split(',')
                     error_code = 5
-                    value = 0
+                    value = 0.0
                     if( len( probes ) % 2 == 0 ):
                         for i in range( 0, len( probes ), 2 ):
-                            if( probes[i] == 0 ):
+                            if( int( probes[i] ) == 0 ):
                                 error_code = 0
                                 value = float( probes[ i+1 ] )
                                 break
@@ -70,7 +73,7 @@ class SerialReader:
         return len( self.newData ) > 0
 
     def flushData( self ):
-        self.data = [ *self.data, *self.newData ]
+        self.data = self.data + self.newData
         self.newData = []
 
     def getAllData(self):
@@ -91,4 +94,4 @@ class SerialReader:
         return ( datetime.now(), 0, "No data" )
     
     def makeDisplayableData(self, data):
-        return "\n".join([f"{d[0].strftime('%H:%M:%S')}\t{d[1]}\t{self.error_msg(d[2])}" for d in data])
+        return "\n".join([d[0].strftime('%H:%M:%S') + "\t" + "{:.2e}".format(d[1]) + "\t" + self.error_msg(d[2]) for d in data])

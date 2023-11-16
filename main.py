@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 from serial.tools import list_ports
-from SerialReader_Metex import SerialReader
+from SerialReader_Metex import SerialReader, WindowTitle, FileExt
 import Saver
 import Plotter
 from datetime import datetime, timedelta
@@ -50,7 +50,7 @@ layout = [[ sg.Column( [
     sg.Canvas( key='canvas' )
 ]] ) ]]
 
-window = sg.Window(title='Metex logger', layout=layout,margins=(100, 100))
+window = sg.Window(title= WindowTitle + ' logger - XP version', layout=layout,margins=(100, 100))
 window.finalize()
 
 # Prepare plot
@@ -62,11 +62,11 @@ plot.first_draw()
 # Read available COM ports
 def refresh_ports():
     ports = list( list_ports.comports() )
-    window['ports_combo'].update(values=[p for p in ports], value=( ports[0] if len(ports) > 0 else "" ))
+    window['ports_combo'].update(values=[p.device for p in ports], value=( ports[0].device if len(ports) > 0 else "" ))
 refresh_ports()
 
 # Read cwv
-sv = Saver.Saver()
+sv = Saver.Saver( FileExt )
 window['saved_file'].update( sv.compute_foldername( window['foldername'].get() ) )
 
 sr = SerialReader( sv )
@@ -89,7 +89,7 @@ while True:
         refresh_ports()
 
     if event == 'connect_btn':
-        sr.connect(values['ports_combo'].device)
+        sr.connect(values['ports_combo'])
 
         window['connect_btn'].update(disabled=True)
         window['refresh_btn'].update(disabled=True)
