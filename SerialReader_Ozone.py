@@ -25,6 +25,7 @@ class SerialReader:
                     if (len(data) != 8):
                         continue
                     newData = (datetime.now(), float( data[2] ), 'ppm', float( data[6] ), 'ppb' )
+                    print( "".join(data) )
 
                     self.newData.append(newData)
                     self.saver.stream_data(*newData)
