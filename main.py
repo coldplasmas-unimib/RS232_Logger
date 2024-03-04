@@ -37,8 +37,8 @@ layout = [[ sg.Column( [
                      autoscroll=True, disabled=True)],
     [
         sg.Column( [ [
-            sg.Text("Waiting...", font=('Helvetica', 30), key=f'display_{i}'),
-            sg.Text("", font=('Helvetica', 15), key=f'udm_{i}', justification='right'),
+            sg.Text("Waiting...", font=('Helvetica', 30), key='display_{}'.format(i)),
+            sg.Text("", font=('Helvetica', 15), key='udm_{}'.format(i), justification='right'),
         ] for i in range( ProbesCount ) ] )
     ],
     # [
@@ -135,8 +135,8 @@ while True:
         
         data = sr.getLastData()
         for i in range( ProbesCount ):
-            window[f'display_{i}'].update( data[i*2+1] )
-            window[f'udm_{i}'].update( data[i*2+2] )
+            window['display_{}'.format(i)].update( data[i*2+1] )
+            window['udm_{}'.format(i)].update( data[i*2+2] )
 
         plot.update_data( sr.getAllData() )
 
