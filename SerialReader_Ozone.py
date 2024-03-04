@@ -24,7 +24,11 @@ class SerialReader:
                     data = line.split(',')
                     if (len(data) != 8):
                         continue
-                    newData = (datetime.now(), float( data[2] ), 'ppm', float( data[6] ), 'ppb' )
+                    try:
+                        newData = (datetime.now(), min( float( data[2] ), 10000), 'ppm', min( float( data[6] ), 10000 ), 'ppb' )
+                    except ValueError as e:
+                        newData = (datetime.now(), 0, 'ppm', 0, 'ppb' )
+                    
                     print( line )
 
                     self.newData.append(newData)
