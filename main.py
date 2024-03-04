@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 from serial.tools import list_ports
-from SerialReader_Metex import SerialReader, WindowTitle, FileExt
+from SerialReader_Ozone import SerialReader, WindowTitle, FileExt, ProbesCount
 import Saver
 import Plotter
 from datetime import datetime, timedelta
@@ -36,15 +36,17 @@ layout = [[ sg.Column( [
         sg.Multiline('Data', size=(50, 10), key='data_text',
                      autoscroll=True, disabled=True)],
     [
-        sg.Text("Waiting...", font=('Helvetica', 30), key='display'),
-        sg.Text("", font=('Helvetica', 15), key='udm', justification='right'),
+        sg.Column( [ [
+            sg.Text("Waiting...", font=('Helvetica', 30), key=f'display_{i}'),
+            sg.Text("", font=('Helvetica', 15), key=f'udm_{i}', justification='right'),
+        ] for i in range( ProbesCount ) ] )
     ],
+    # [
+    #     sg.Button('Enable notifier', key="notifier_btn", disabled=False),
+    #     sg.Text("t.me/rs232_notifications")
+    # ],
     [
-        sg.Button('Enable notifier', key="notifier_btn", disabled=False),
-        sg.Text("t.me/rs232_notifications")
-    ],
-    [
-        sg.Text("L. Zampieri - 10/2023", font=('Helvetica', 8)),
+        sg.Text("L. Zampieri - 03/2024", font=('Helvetica', 8)),
     ]
 ] ), sg.Column( [[
     sg.Canvas( key='canvas' )
@@ -57,7 +59,7 @@ window.finalize()
 plot = Plotter.Plotter(window['canvas'])
 # plot.first_plot()
 # plot.figure_controller([],[])
-plot.first_draw()
+plot.first_draw( ProbesCount )
 
 # Read available COM ports
 def refresh_ports():
@@ -131,9 +133,10 @@ while True:
         window['data_text'].update(
             values['data_text'] + '\n' + sr.makeDisplayableData(sr.getNewData()))
         
-        _, data, udm = sr.getLastData()
-        window['display'].update( data )
-        window['udm'].update( udm )
+        data = sr.getLastData()
+        for i in range( ProbesCount ):
+            window[f'display_{i}'].update( data[i*2+1] )
+            window[f'udm_{i}'].update( data[i*2+2] )
 
         plot.update_data( sr.getAllData() )
 

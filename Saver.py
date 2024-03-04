@@ -34,9 +34,9 @@ class Saver:
         self.file = open( saving_on, 'w', buffering = 1 )
         return saving_on
     
-    def stream_data( self, datetime, data, udm ):
+    def stream_data( self, datetime, *data ):
         if( self.file ):
-            self.file.write( "{:.0f}".format(datetime.timestamp()*1000) + "," + str(data) + ","  + str(udm) + "\n" )
+            self.file.write( "{:.0f}".format(datetime.timestamp()*1000) + "".join( [ f",{d}" for d in data ] ) + "\n" )
 
     def stop_saving( self ):
         self.file.close()

@@ -19,20 +19,24 @@ class Plotter:
         tkcanvas.get_tk_widget().pack(side='top', fill='both', expand=1)
         return tkcanvas
 
-    def first_draw(self):
+    def first_draw(self, probsCount):
         self.axis = self.fig.add_subplot(111)
-        self.line, = self.axis.plot([], [])
+        self.lines = []
+        for i in range( probsCount ):
+            line, = self.axis.plot([], [])
+            self.lines.append( line )
         self.tkcanvas = self.draw_figure(self.canvas, self.fig)
 
         self.axis.set_xlim( - 5*60, 0 )
         self.axis.set_xlabel( "Time [s]" )
 
-    def parse_data(self, data):
+    def parse_data(self, data, col):
         current_t = datetime.now().timestamp()
-        return [d[0].timestamp() - current_t for d in data], [d[1] for d in data]
+        return [d[0].timestamp() - current_t for d in data], [d[col*2+1] for d in data]
 
     def update_data(self, data):
-        self.line.set_data(self.parse_data(data))  # update data
+        for i in range( len( self.lines ) ):
+            self.lines[i].set_data(self.parse_data(data, i))  # update data
         self.axis.relim()  # scale the y scale
         self.axis.autoscale_view()  # scale the y scale
         self.tkcanvas.draw()
