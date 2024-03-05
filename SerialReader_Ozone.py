@@ -45,7 +45,7 @@ class SerialReader:
         self.saver = saver
 
     def connect(self, port):
-        self.ser = serial.Serial(baudrate=115200, bytesize=serial.EIGHTBITS,
+        self.ser = serial.Serial(baudrate=9600, bytesize=serial.EIGHTBITS,
                                  parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
         self.ser.port = port
         self.ser.open()
