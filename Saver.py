@@ -19,9 +19,12 @@ class Saver:
     def make_filename( self, folder, progr ):
         return folder + "/M" + "{:04d}".format(progr) + self.fileext
 
+    def ensure_folder_exists( self, folder ):
+        os.makedirs( folder, exist_ok=True )
+
     def compute_filename( self, subfolder ):
         folder = self.compute_foldername( subfolder )
-        os.makedirs( folder, exist_ok=True )
+        self.ensure_folder_exists( folder )
 
         progr = 0
         while( exists( self.make_filename( folder, progr ) ) ):

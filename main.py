@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
 from serial.tools import list_ports
-from SerialReader_Ozone import SerialReader, WindowTitle, FileExt, ProbesCount
+# from SerialReader_Ozone import SerialReader, WindowTitle, FileExt, ProbesCount
+from SerialReader_Demo import SerialReader, WindowTitle, FileExt, ProbesCount
 import Saver
 import Plotter
 from datetime import datetime, timedelta
@@ -45,6 +46,9 @@ layout = [[ sg.Column( [
     #     sg.Button('Enable notifier', key="notifier_btn", disabled=False),
     #     sg.Text("t.me/rs232_notifications")
     # ],
+    [
+        sg.Button('Reset plot', key="reset_btn"),
+    ],
     [
         sg.Text("L. Zampieri - 03/2024", font=('Helvetica', 8)),
     ]
@@ -99,6 +103,7 @@ while True:
         window['start_btn'].update(disabled=False)
 
     if event == 'viewfolder_btn':
+        sv.ensure_folder_exists( sv.compute_foldername( values['foldername'] ) )
         os.startfile( sv.compute_foldername( values['foldername'] ) )
 
     # if event == 'notifier_btn':
@@ -152,6 +157,9 @@ while True:
     if sv.is_saving():
         blink_dot = not blink_dot
         window['blinking_dot'].update( 'x' if blink_dot else 'o' )
+
+    if event == 'reset_btn':
+        plot.reset( sr.getAllData() )
 
 window.close()
 sys.exit()
