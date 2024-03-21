@@ -25,7 +25,7 @@ class Plotter:
         self.axis = self.fig.add_subplot(111)
         self.lines = []
         for i in range(probsCount):
-            line, = self.axis.plot([], [], label=f"Sens. {}".format(i+1))
+            line, = self.axis.plot([], [], label="Sens. {}".format(i+1))
             self.lines.append(line)
         self.tkcanvas = self.draw_figure(self.canvas, self.fig)
 
