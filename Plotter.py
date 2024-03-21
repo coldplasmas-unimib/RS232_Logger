@@ -25,7 +25,7 @@ class Plotter:
         self.axis = self.fig.add_subplot(111)
         self.lines = []
         for i in range(probsCount):
-            line, = self.axis.plot([], [], label=f"Sens. {i+1}")
+            line, = self.axis.plot([], [], label=f"Sens. {}".format(i+1))
             self.lines.append(line)
         self.tkcanvas = self.draw_figure(self.canvas, self.fig)
 
@@ -38,7 +38,7 @@ class Plotter:
         current_t = datetime.now().timestamp()
         times = np.array([d[0].timestamp() - current_t for d in data])
         i_max = len(times)
-        i_min = max( self.i_min, np.min(np.where(times > -self.max_t)[0]) )
+        i_min = max(self.i_min, np.min(np.where(times > -self.max_t)[0]))
 
         for i in range(len(self.lines)):
             self.lines[i].set_data(
@@ -50,8 +50,8 @@ class Plotter:
         self.axis.autoscale_view()  # scale the y scale
         self.tkcanvas.draw()
 
-    def reset( self, data ):
-        self.i_min = len( data )
+    def reset(self, data):
+        self.i_min = len(data)
 
 # class Plotter():
 #     def __init__(self, canvas) -> None:
