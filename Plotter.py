@@ -12,7 +12,7 @@ class Plotter:
     def __init__(self, canvas):
         self.fig = matplotlib.figure.Figure(figsize=(5, 4), dpi=100)
         self.canvas = canvas.TKCanvas
-        self.max_t = 5
+        self.max_t = 5*60
         self.i_min = 0
 
     def draw_figure(self, canvas, figure):
@@ -44,7 +44,7 @@ class Plotter:
             self.lines[i].set_data(
                 [times[i_min:i_max], [d[i*2+1] for d in data[i_min:i_max]]])  # update data
 
-        print("Plotting {} data".format(i_max-i_min))
+        # print("Plotting {} data".format(i_max-i_min))
 
         self.axis.relim()  # scale the y scale
         self.axis.autoscale_view()  # scale the y scale

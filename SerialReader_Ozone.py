@@ -29,7 +29,7 @@ class SerialReader:
                     except ValueError as e:
                         newData = (datetime.now(), 0, 'ppm', 0, 'ppb' )
                     
-                    print( line )
+                    print( line[:-1] )
 
                     self.newData.append(newData)
                     self.saver.stream_data(*newData)
