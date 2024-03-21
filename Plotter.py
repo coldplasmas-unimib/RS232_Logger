@@ -8,12 +8,12 @@ matplotlib.use('TkAgg')
 
 
 class Plotter:
-    max_t = 5
-    i_min = 0
 
     def __init__(self, canvas):
         self.fig = matplotlib.figure.Figure(figsize=(5, 4), dpi=100)
         self.canvas = canvas.TKCanvas
+        self.max_t = 5
+        self.i_min = 0
 
     def draw_figure(self, canvas, figure):
         tkcanvas = FigureCanvasTkAgg(figure, canvas)
