@@ -1,7 +1,6 @@
 import PySimpleGUI as sg
 from serial.tools import list_ports
 from SerialReader_Ozone import SerialReader, WindowTitle, FileExt, ProbesCount
-# from SerialReader_Demo import SerialReader, WindowTitle, FileExt, ProbesCount
 import Saver
 import Plotter
 from datetime import datetime, timedelta
