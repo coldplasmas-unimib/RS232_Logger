@@ -6,6 +6,7 @@ import re
 
 WindowTitle = "Pfeiffer"
 FileExt = "pfeiffer"
+ProbesCount = 1
 
 class SerialReader:
 

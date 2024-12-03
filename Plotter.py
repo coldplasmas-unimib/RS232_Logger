@@ -30,8 +30,12 @@ class Plotter:
         self.tkcanvas = self.draw_figure(self.canvas, self.fig)
 
         self.axis.set_xlim(- self.max_t, 0)
-        self.axis.set_xlabel("Time [s]")
+        self.axis.set_xlabel("Time [min]")
         self.axis.legend(loc='upper left')
+
+        ticks = np.arange( -self.max_t, 1, 60)
+        self.axis.set_xticks( ticks )
+        self.axis.set_xticklabels( ticks / 60 )
 
     def update_data(self, data):
 

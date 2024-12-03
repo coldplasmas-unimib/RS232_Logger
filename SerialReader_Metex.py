@@ -6,6 +6,7 @@ import re
 
 WindowTitle = "Metex"
 FileExt = "metex"
+ProbesCount = 1
 
 class SerialReader:
 

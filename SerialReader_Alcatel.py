@@ -1,4 +1,5 @@
 import serial
+import serial
 import threading
 import time
 from datetime import datetime
@@ -6,6 +7,7 @@ import re
 
 WindowTitle = "Alcatel"
 FileExt = "alcatel"
+ProbesCount = 1
 
 class SerialReader:
 
